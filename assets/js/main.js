@@ -33,7 +33,7 @@ let monedaDolar,
   monedaEuro,
   monedaBitCoin = "";
 
-async function valoresMonedas() {
+const valoresMonedas= async() => {
   try {
     const res = await fetch(`https://mindicador.cl/api/`);
     const data = await res.json();
@@ -46,7 +46,7 @@ async function valoresMonedas() {
   }
 }
 
-async function obtenerDatosMoneda(monedaseleccionada) {
+const obtenerDatosMoneda= async(monedaseleccionada) => {
   try {
     const urls = {
       dolar: "https://mindicador.cl/api/dolar/",
@@ -97,7 +97,7 @@ const formatearDatosParaGrafico = (datos, monedaSeleccionada) => {
 
 let myChart;
 
-async function renderGrafica() {
+const renderGrafica= async() => {
   let data;
   const monedaSeleccionada = selectorDeMoneda.value.toLowerCase();
 
