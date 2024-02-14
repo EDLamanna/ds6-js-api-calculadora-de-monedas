@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+}
+
+body {
+  background-color: black;
+  color: white;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+}
+
+hr {
+  border: 1px solid rgb(35, 72, 101);
+  margin: 20px;
+  width: 55vw;
+}
+
+h1 {
+  font-size: 55px;
+}
+
+.container {
+  background-color: rgb(109, 117, 125);
+  width: 450px;
+  height: 430px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  border-radius: 3px;
+}
+
+h2 {
+  margin-top: 30px;
+  font-size: 35px;
+}
+
+#montoInput,
+#tipoMonedaSelect {
+  margin-top: 8px;
+  width: 20em;
+  height: 2.5em;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 16px;
+}
+
+h3 {
+  margin-top: 30px;
+  font-size: 30px;
+  margin: 10px;
+}
+
+.calcular-boton {
+  font-size: 25px;
+  width: 12.8em;
+  height: 1.5em;
+  border-radius: 5px;
+  margin: 30px;
+  background-color: rgb(66, 202, 236);
+  color: white;
+  border: 2px solid rgb(29, 154, 154);
+  cursor: pointer;
+}
+
+.resultado {
+  font-size: 26px;
+}
+
+.grafica {
+  width: 800px;
+}
+
+.resultadoError {
+  color: rgb(239, 228, 228);
+  font-size: 22px;
+  font-weight: bold;
+}
