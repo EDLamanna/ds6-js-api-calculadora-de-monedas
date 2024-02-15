@@ -5,10 +5,10 @@ const mostrarResultado = document.getElementById("resultado");
 const tituloGrafico = document.getElementById("tituloGrafico");
 const mostrarError = document.getElementById("error");
 
-let valorInput = "";
+const valorInput = "";
 
 montoInput.addEventListener("input", () => {
-  let valorInput = montoInput.value.replace(/\D/g, "");
+  const valorInput = montoInput.value.replace(/\D/g, "");
   if (valorInput === "") {
     montoInput.value = "";
     montoInput.placeholder = "Ingrese el monto en CLP";
@@ -33,7 +33,7 @@ let monedaDolar,
   monedaEuro,
   monedaBitCoin = "";
 
-const valoresMonedas= async() => {
+const valoresMonedas = async () => {
   try {
     const res = await fetch(`https://mindicador.cl/api/`);
     const data = await res.json();
@@ -44,14 +44,14 @@ const valoresMonedas= async() => {
     mostrarError.innerHTML =
       "Lo sentimos, ha ocurrido un error inesperado. Por favor, inténtalo de nuevo más tarde.";
   }
-}
+};
 
-const obtenerDatosMoneda= async(monedaseleccionada) => {
+const obtenerDatosMoneda = async (monedaseleccionada) => {
   try {
     const urls = {
       dolar: "https://mindicador.cl/api/dolar/",
       euro: "https://mindicador.cl/api/euro/",
-      bitcoin: "https://mindicador.cl/api/bitcoin/"
+      bitcoin: "https://mindicador.cl/api/bitcoin/",
     };
 
     const url = urls[monedaseleccionada.toLowerCase()];
@@ -62,13 +62,15 @@ const obtenerDatosMoneda= async(monedaseleccionada) => {
     const serie = data.serie;
     return serie.slice(0, 10);
   } catch (error) {
-    throw new Error(`Ha ocurrido un error al obtener los datos de ${monedaseleccionada}.`);
+    throw new Error(
+      `Ha ocurrido un error al obtener los datos de ${monedaseleccionada}.`
+    );
   }
-}
+};
 
 const formatearDatosParaGrafico = (datos, monedaSeleccionada) => {
   try {
-    const fechasMapedas = datos.map((valor) => {
+    let fechasMapedas = datos.map((valor) => {
       const fecha = new Date(valor.fecha);
       const dia = fecha.getDate().toString().padStart(2, "0");
       const mes = (fecha.getMonth() + 1).toString().padStart(2, "0");
@@ -77,6 +79,8 @@ const formatearDatosParaGrafico = (datos, monedaSeleccionada) => {
     });
 
     let valoresMapeados = datos.map((valor) => valor.valor);
+
+    fechasMapedas = fechasMapedas.reverse();
     valoresMapeados = valoresMapeados.reverse();
 
     const datasets = [
@@ -97,13 +101,16 @@ const formatearDatosParaGrafico = (datos, monedaSeleccionada) => {
 
 let myChart;
 
-const renderGrafica= async() => {
+const renderGrafica = async () => {
   let data;
   const monedaSeleccionada = selectorDeMoneda.value.toLowerCase();
 
   try {
     data = await obtenerDatosMoneda(monedaSeleccionada);
-    const datosFormateados = formatearDatosParaGrafico(data, monedaSeleccionada);
+    const datosFormateados = formatearDatosParaGrafico(
+      data,
+      monedaSeleccionada
+    );
     const config = {
       type: "line",
       data: datosFormateados,
@@ -117,9 +124,10 @@ const renderGrafica= async() => {
     myChart = new Chart(canvas, config);
     canvas.style.backgroundColor = "white";
   } catch (error) {
-    mostrarError.innerHTML = "Lo sentimos, ha ocurrido un error inesperado. Por favor, inténtalo de nuevo más tarde.";
+    mostrarError.innerHTML =
+      "Lo sentimos, ha ocurrido un error inesperado. Por favor, inténtalo de nuevo más tarde.";
   }
-}
+};
 
 calcularBtn.addEventListener("click", () => {
   actualizarSelectorDeMonedaInput();
